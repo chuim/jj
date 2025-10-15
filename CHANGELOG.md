@@ -12,6 +12,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Deprecations
 
+* The config option `git.auto-local-bookmark` is
+  deprecated in favor of `git.auto-track-bookmarks`. See
+  <https://jj-vcs.github.io/jj/latest/config/#automatic-tracking-of-bookmarks>.
+
 ### New features
 
 * `jj squash` now accepts `--editor` / `-E` to edit the squashed commit message.
