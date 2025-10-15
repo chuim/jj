@@ -15,10 +15,10 @@
 use clap_complete::ArgValueCandidates;
 use itertools::Itertools as _;
 use jj_lib::repo::Repo as _;
+use jj_lib::str_util::RemoteBookmarkNamePattern;
 
 use super::find_trackable_remote_bookmarks;
 use crate::cli_util::CommandHelper;
-use crate::cli_util::RemoteBookmarkNamePattern;
 use crate::cli_util::default_ignored_remote_name;
 use crate::command_error::CommandError;
 use crate::complete;

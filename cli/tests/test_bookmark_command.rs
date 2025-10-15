@@ -2421,6 +2421,36 @@ fn test_bookmark_list_sort_overriding_config() {
     ");
 }
 
+#[test]
+fn test_create_and_set_auto_track_bookmarks() {
+    let test_env = TestEnvironment::default();
+    let root_dir = test_env.work_dir("");
+    test_env.add_config("git.auto-track-bookmarks = 'glob:mine/*@*'");
+
+    root_dir.run_jj(["git", "init", "repo"]).success();
+    let repo_dir = test_env.work_dir("repo");
+    repo_dir
+        .run_jj(["git", "remote", "add", "origin", "dummy"])
+        .success();
+
+    let output = repo_dir.run_jj(["bookmark", "create", "mine/create", "not-mine/create"]);
+    insta::assert_snapshot!(output, @r"
+    ------- stderr -------
+    Warning: Target revision is empty.
+    Created 2 bookmarks pointing to qpvuntsm e8849ae1 mine/create* not-mine/create | (empty) (no description set)
+    [EOF]
+    ");
+
+    repo_dir.run_jj(["new"]).success();
+    let output = repo_dir.run_jj(["bookmark", "set", "mine/set", "not-mine/set"]);
+    insta::assert_snapshot!(output, @r"
+    ------- stderr -------
+    Warning: Target revision is empty.
+    Created 2 bookmarks pointing to zsuskuln 0e555a27 mine/set* not-mine/set | (empty) (no description set)
+    [EOF]
+    ");
+}
+
 #[must_use]
 fn get_log_output(work_dir: &TestWorkDir) -> CommandOutput {
     let template = r#"bookmarks ++ " " ++ commit_id.short()"#;

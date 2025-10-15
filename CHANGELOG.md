@@ -16,6 +16,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 * `jj squash` now accepts `--editor` / `-E` to edit the squashed commit message.
 
+* A new config option `git.auto-track-bookmarks` can be set to a string
+  pattern. New bookmarks that match the pattern will automatically be tracked.
+  See <https://jj-vcs.github.io/jj/latest/config/#automatic-tracking-of-bookmarks>.
+
 ### Fixed bugs
 
 ## [0.35.0] - 2025-11-05
