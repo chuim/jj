@@ -459,7 +459,7 @@ fn select_diff(
     let mut source_commits = vec![];
     for source in sources {
         let parent_tree = source.parent_tree(tx.repo())?;
-        let source_tree = source.tree()?;
+        let source_tree = source.tree();
         let format_instructions = || {
             formatdoc! {"
                 You are moving changes from: {source}
