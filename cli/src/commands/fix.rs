@@ -226,7 +226,16 @@ async fn fix_one_file(
                 // TODO: Because the stderr is passed through, this isn't always failing
                 // silently, but it should do something better will the exit code, tool
                 // name, etc.
-                Err(_) => prev_content,
+                Err(()) => {
+                    writeln!(
+                        ui.warning_default(),
+                        "Failed to run `{}` on `{}`",
+                        tool_config.command.split_name(),
+                        path_converter.format_file_path(&file_to_fix.repo_path)
+                    )
+                    .ok();
+                    prev_content
+                }
             }
         });
         if new_content != old_content {
